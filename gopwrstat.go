@@ -3,7 +3,7 @@ package gopwrstat
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"os"
 	"os/exec"
 	"strings"
 )
@@ -52,7 +52,7 @@ func NewFromSystem() (*Pwrstat, error) {
 }
 
 func NewFromFile(path string) (*Pwrstat, error) {
-	out, err := ioutil.ReadFile(path)
+	out, err := os.ReadFile(path)
 	if err != nil {
 		return &Pwrstat{}, err
 	}
