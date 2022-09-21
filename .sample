@@ -1,15 +1,3 @@
-package gopwrstat
-
-import (
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
-
-func TestConstruct(t *testing.T) {
-	s := assert.New(t)
-
-	sample := `
 The UPS information shows as following:
 
 	Properties:
@@ -29,19 +17,3 @@ The UPS information shows as following:
 			Line Interaction............. None
 			Test Result.................. Passed at 2022/09/21 20:44:29
 			Last Power Event............. None
-			`
-
-	actual := construct(sample)
-	s.Len(actual.Status, 14)
-	actualBatteryCapacity, ok := actual.Status["Battery Capacity"]
-	s.True(ok)
-	s.Equal("100 %", actualBatteryCapacity)
-}
-
-func TestFromFile(t *testing.T) {
-	s := assert.New(t)
-
-	pwrstat, err := NewFromFile("./.sample")
-	s.NoError(err)
-	s.Len(pwrstat.Status, 14)
-}
